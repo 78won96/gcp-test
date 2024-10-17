@@ -1,11 +1,24 @@
+steps:
 
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['beta', 'run', 'deploy', '--image', 'gcr.io/my-project-id/myimage']
+  
+  - name: 'gcr.io/cloud-builders/bash'
+    args: ['-c', 'ls -l CloudBuild']
 
+  # 1. 도커 이미지 빌드
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', '.']
+    dir : '/CloudBuild'
 
+  # 2. Artifact Registry에 푸시하는 단계
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA' ]
+            
+  # 3. Cloud Run 동작
+  # - name: 'gcr.io/cloud-builders/gcloud'
+  # - script: |
+  #     gcloud run deploy changtalk-run --image us-west1-docker.pkg.dev/quixotic-skill-402605/test/${tag}/test --region us-west2 --platform managed --allow-unauthenticated
 
-  steps:
-- name: 'gcr.io/cloud-builders/mvn'
-  args: ['install']
-- name: 'gcr.io/cloud-builders/bash'
-  args: ['-c', 'ls -R CloudBuild']
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', 'CloudBuild']
+options:
+  logging: CLOUD_LOGGING_ONLY
