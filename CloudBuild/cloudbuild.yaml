@@ -3,9 +3,8 @@ steps:
   # 1. 도커 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
     args: [
-      'build', 
-      '-t', 'gcr.io/my-project/sample-image',
-   ##   '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', 
+      'build',   
+      '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', 
       '-f', './CloudBuild/Dockerfile',
       'CloudBuild/'
           ]
