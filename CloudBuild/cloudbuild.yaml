@@ -5,12 +5,12 @@ steps:
     args: [
     'build',
     '-t', 'gcr.io/my-project/sample-image',
-    '-f', 'CloudBuild/Dockerfile',            # Dockerfile의 경로
+    '-f', './CloudBuild/Dockerfile',            # Dockerfile의 경로
     'CloudBuild/'                             # 빌드 컨텍스트
-          ]  
+       ]  
 
-   ## args: ['build', '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', '.']
-    dir : './CloudBuild'
+  ## args: ['build', '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', '.']
+  ##  dir : './CloudBuild'
     id : 'build'
 
   # 2. Artifact Registry에 푸시하는 단계
