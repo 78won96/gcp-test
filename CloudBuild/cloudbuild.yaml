@@ -8,6 +8,7 @@ steps:
       '-f', './CloudBuild/Dockerfile',
       'CloudBuild/'
           ]
+    dir : 'CloudBuild'
     id : 'build'
 
   # 2. Artifact Registry에 푸시하는 단계
