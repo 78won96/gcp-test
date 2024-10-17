@@ -1,4 +1,8 @@
 steps:
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['beta', 'run', 'deploy', '--image', 'gcr.io/my-project-id/myimage']
+  
   - name: 'gcr.io/cloud-builders/bash'
     args: ['-c', 'ls -l CloudBuild']
 
