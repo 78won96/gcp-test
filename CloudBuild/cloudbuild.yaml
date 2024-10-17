@@ -1,10 +1,8 @@
 steps:
 
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['beta', 'run', 'deploy', '--image', 'gcr.io/my-project-id/myimage']
-  
+ 
   - name: 'gcr.io/cloud-builders/bash'
-    args: ['-c', 'ls -l CloudBuild']
+    args: ['-c', 'ls -R']
 
   # 1. 도커 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
