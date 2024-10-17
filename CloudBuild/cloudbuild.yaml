@@ -5,7 +5,7 @@ steps:
     args: [
       'build',   
       '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', 
-      '-f', '/CloudBuild/Dockerfile',
+      '-f', './CloudBuild/Dockerfile',
       'CloudBuild/'
           ]
     dir : 'CloudBuild'
