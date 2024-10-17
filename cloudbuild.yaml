@@ -1,16 +1,12 @@
 steps:
-  # mvn 설치
-  - name: maven:3.8.1-openjdk-17
-    entrypoint: mvn
-    args: ['package','-Dmaven.test.skip=true' ]
-
+  
   # 1. 도커 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/test/${tag}/test:latest', '--build-arg=JAR_FILE=target/docker-cicd-test-0.0.1-SNAPSHOT.jar', '.']
+    args: ['build', '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', '.']
 
   # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-west1-docker.pkg.dev/${PROJECT_ID}/test/${tag}/test:latest' ]
+    args: [ 'push', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA' ]
             
   # 3. Cloud Run 동작
   # - name: 'gcr.io/cloud-builders/gcloud'
