@@ -10,10 +10,12 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', '-f', 'GCP-Project-ljw/CloudBuild/', '.']
     dir : './CloudBuild'
+    id : 'build'
 
   # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA' ]
+    id : 'push'
             
   # 3. Cloud Run 동작
   # - name: 'gcr.io/cloud-builders/gcloud'
