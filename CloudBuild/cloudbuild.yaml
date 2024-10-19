@@ -1,6 +1,6 @@
 steps:
   - name: 'alpine'
-    args: ['sh', '-c', 'ls -l CloudBuild']
+    args: ['sh', '-c', 'ls -l ']
 
 
   # 1. 도커 이미지 빌드
