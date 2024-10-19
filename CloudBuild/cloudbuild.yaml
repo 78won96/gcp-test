@@ -10,13 +10,6 @@ steps:
       'build',   
       '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA', 'CloudBuild/']
     id : 'build'
-  
-  # all the variables are passed to the Container in the ENV: section
-  - name: 'gcr.io/cloud-builders/docker'
-    args: 
-    - 'auth'
-    - 'configure-docker'
-    - '--quiet'
 
   #Image Scan
   - name: 'gcr.io/cloud-builders/docker'
