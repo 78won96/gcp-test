@@ -6,6 +6,13 @@ steps:
       'build',   
       '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', '.']
     id : 'build'
+  
+  # all the variables are passed to the Container in the ENV: section
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+    - 'auth'
+    - 'configure-docker'
+    - '--quiet'
 
   #Image Scan
   - name: 'gcr.io/cloud-builders/docker'
