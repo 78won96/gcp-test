@@ -28,7 +28,7 @@ steps:
     - '--password'
     - 'd4l97POej0I7IfYYm01m9SH3krw='
     - '--details'
-    - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA'
+    - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA'
 
   # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
