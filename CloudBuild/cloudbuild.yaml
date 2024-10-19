@@ -1,4 +1,5 @@
 steps:
+  # 0. CloudBuild 경로 확인
   - name: 'alpine'
     args: ['sh', '-c', 'ls -l ']
 
@@ -7,7 +8,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',   
-      '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA', 'CloudBuild/Dockerfile']
+      '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA', 'CloudBuild/']
     id : 'build'
   
   # all the variables are passed to the Container in the ENV: section
