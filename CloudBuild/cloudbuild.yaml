@@ -1,4 +1,7 @@
 steps:
+  - name: 'alpine'
+    args: ['sh', '-c', 'ls -l CloudBuild']
+
 
   # 1. 도커 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
