@@ -4,7 +4,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',   
-      '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', -f './CloudBuild/Dockerfile', 'Dockerfile']
+      '-t', 'us-west1-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/hello-world-nodejs:$SHORT_SHA', -f '/CloudBuild/Dockerfile', 'Dockerfile']
     id : 'build'
   
   # all the variables are passed to the Container in the ENV: section
