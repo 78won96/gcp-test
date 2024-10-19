@@ -25,7 +25,7 @@ steps:
     - 'images'
     - 'scan'
     - '--address'
-    - 'https://asia-northeast1.cloud.twistlock.com/japan-1167212692'
+    - 'https://api.jp.prismacloud.io'
     - '--user'
     - 'f255704b-1edd-444c-b46d-38346976b03c'
     - '--password'
