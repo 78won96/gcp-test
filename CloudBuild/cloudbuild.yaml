@@ -39,8 +39,6 @@ steps:
     secretEnv: ['prismauser', 'prismapassword']
     entrypoint: 'bash'
     args: 
-    - '-c'
-    - 'echo ${prismauser}' 
     - 'run'
     - '--rm'
     - '-v'
