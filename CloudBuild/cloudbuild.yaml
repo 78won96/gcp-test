@@ -2,7 +2,7 @@ steps:
 
   # 0. CloudBuild 경로 확인
   - name: 'alpine'
-    args: ['sh', '-c', 'ls -l ']
+    args: ['sh', '-c', 'ls -l ', 'echo $prismauser']
 
 
   # 1. 도커 이미지 빌드
