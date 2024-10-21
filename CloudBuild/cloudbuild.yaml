@@ -44,7 +44,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'cloudrun-test'
+      - 'cloudrun-test-ljw'
       - '--image'
       - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA'
       - '--region'
