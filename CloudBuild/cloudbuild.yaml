@@ -7,7 +7,12 @@ steps:
   # 0. gcloud command 확인
   - name: 'gcr.io/cloud-builders/gcloud'
     id: 'checkout'
-    args: [ gcloud secrets versions access latest --secret=prismauser]
+    args:
+      - 'secrets'
+      - 'versions'
+      - 'access'
+      - 'latest'
+      - '--secret=prismauser'
 
 
   # 1. 도커 이미지 빌드
