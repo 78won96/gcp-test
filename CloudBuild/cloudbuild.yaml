@@ -44,7 +44,7 @@ steps:
     - 'images'
     - 'scan'
     - '--address'
-    - 'https://asia-northeast1.cloud.twistlock.com/japan-1167212692'
+    - '${address}'
     - '--user'
     - '${prismauser}'
     - '--password'
