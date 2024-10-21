@@ -81,7 +81,7 @@ steps:
 options:
   logging: CLOUD_LOGGING_ONLY
 
-secret: 
+secrets: 
   - kmsKeyName: projects/${PROJECT_ID}/locations/asia-northeast3/keyRings/prismapassword/cryptoKeys/prisma
     secretEnv:
       TL_PASS:prisma
