@@ -4,7 +4,7 @@ steps:
   - name: 'alpine'
     args: ['sh', '-c', 'ls -al' ]
 
-  # 0. gcloud command 확인
+  # 0. gcloud command로 secretEnv 확인
   - name: 'gcr.io/cloud-builders/gcloud'
     id: 'checkout'
     args:
@@ -13,8 +13,6 @@ steps:
       - 'access'
       - 'latest'
       - '--secret=prismauser'
-    
-
 
   # 1. 도커 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
@@ -31,13 +29,6 @@ steps:
     args:
       - '-c'
       - 'echo ${prismauser}' 
-
-  - name: 'gcr.io/cloud-builders/docker'
-    args: 
-    - 'auth'
-    - 'configure-docker'
-    - '--quiet'
-
 
   # 2. Prisma Cloud Image Scan
   - name: 'gcr.io/cloud-builders/docker'
