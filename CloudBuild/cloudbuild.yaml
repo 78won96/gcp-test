@@ -27,9 +27,9 @@ steps:
     - '--address'
     - 'https://asia-northeast1.cloud.twistlock.com/japan-1167212692'
     - '--user'
-    - '${prismauser}'
+    - '$$prismauser'
     - '--password'
-    - '${prismapassword}'
+    - '$$prismapassword'
     - '--details'
     - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA'
     
