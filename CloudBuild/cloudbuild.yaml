@@ -39,9 +39,10 @@ steps:
       - 'TL_USER=$_TWISTLOCK_USER'
     secretEnv:  
       - 'TL_PASS'
+
     substitutions:
-      _TWISTLOCK_URL: '{{ Twistlock Console URL }}'
-      _TWISTLOCK_USER: '{{ Twistlock CI User }}'
+     _TWISTLOCK_URL: '{{ Twistlock Console URL }}'
+     _TWISTLOCK_USER: '{{ Twistlock CI User }}'
   
     args: 
     - 'run'
