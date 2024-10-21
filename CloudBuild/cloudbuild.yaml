@@ -13,7 +13,7 @@ steps:
       - 'access'
       - 'latest'
       - '--secret=prismauser'
-      - '--secret=prismapassword'
+    
 
 
   # 1. 도커 이미지 빌드
