@@ -25,12 +25,12 @@ steps:
     - 'scan'
     - '--address'
     - 'https://asia-northeast1.cloud.twistlock.com/japan-1167212692'
-    - '--user=${prismacloud-user}'
-    - '--password=${prismacloud-password}'
+    - '--user=${prismauser}'
+    - '--password=${prismapassword}'
     - '--details'
     - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA'
     
-    secretEnv : ['prismacloud-user', 'prismacloud-password']
+    secretEnv : ['prismauser', 'prismapassword']
    
 
   # 2. Artifact Registry에 푸시하는 단계
@@ -60,7 +60,7 @@ options:
 
 availableSecrets:
   secretManager:
-  - versionName: projects/843668447202/secrets/prismacloud-user/versions/1
-    env: 'prismacloud-user'
-  - versionName: projects/843668447202/secrets/prismacloud-password/versions/1
-    env: 'prismacloud-password'
+  - versionName: projects/843668447202/secrets/prismauser/versions/latest
+    env: 'prismauser'
+  - versionName: projects/843668447202/secrets/prismapassword/versions/latest
+    env: 'prismapassword'
