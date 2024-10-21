@@ -34,7 +34,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     id: 'test'
     secretEnv: ['prismauser', 'prismapassword']
-    entrypoint: 'sh'
+    entrypoint: 'bash'
     args: 
     - 'run'
     - '--rm'
