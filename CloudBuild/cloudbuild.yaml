@@ -62,7 +62,7 @@ options:
 
 availableSecrets:
   secretManager:
-  - versionName: projects/${PROJECT_ID}/secrets/prismacloud-user/versions/latest
+  - versionName: projects/843668447202/secrets/prismacloud-user/versions/latest
     env: 'prismacloud-user'
-  - versionName: projects/${PROJECT_ID}/secrets/prismacloud-password/versions/latest
+  - versionName: projects/843668447202/secrets/prismacloud-password/versions/latest
     env: 'prismacloud-password'
