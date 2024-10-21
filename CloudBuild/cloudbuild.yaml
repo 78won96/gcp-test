@@ -2,7 +2,7 @@ steps:
 
   # 0. CloudBuild 경로 확인
   - name: 'alpine'
-    args: ['sh', '-c', 'echo ${prismauser}']
+    args: ['sh', '-c', 'ls -al' ]
 
 
   # 1. 도커 이미지 빌드
@@ -63,7 +63,7 @@ options:
 
 availableSecrets:
    secretManager:
-     - versionName: projects/${PROJECT_ID}/secrets/prismauser/versions/latest
+     - versionName: projects/${PROJECT_ID}/secrets/prismauser
        env: 'prismauser'
-     - versionName: projects/${PROJECT_ID}/secrets/prismapassword/versions/latest
+     - versionName: projects/${PROJECT_ID}/secrets/prismapassword
        env: 'prismapassword'
