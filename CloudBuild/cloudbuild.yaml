@@ -32,7 +32,7 @@ steps:
 
 # 2. Prisma Cloud Image Scan pre
   - name: 'gcr.io/cloud-builders/docker'
-    id: 'Scan'
+    id: 'test'
     secretEnv: ['prismauser', 'prismapassword']
     entrypoint: 'sh'
     args: 
