@@ -39,10 +39,6 @@ steps:
       - 'TL_USER=$_TWISTLOCK_USER'
     secretEnv:  
       - 'prisampassword'
-
-    substitutions:
-     _TWISTLOCK_URL: '{{ Twistlock Console URL }}'
-     _TWISTLOCK_USER: '{{ Twistlock CI User }}'
   
     args: 
     - 'run'
