@@ -37,6 +37,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Scan'
     secretEnv: ['prismauser', 'prismapassword']
+    entrypoint: 'bash'
     args: 
     - '-c'
     - 'echo ${prismauser}' 
