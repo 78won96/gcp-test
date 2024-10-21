@@ -32,6 +32,12 @@ steps:
       - '-c'
       - 'echo ${prismauser}' 
 
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+    - 'auth'
+    - 'configure-docker'
+    - '--quiet'
+
 
   # 2. Prisma Cloud Image Scan
   - name: 'gcr.io/cloud-builders/docker'
