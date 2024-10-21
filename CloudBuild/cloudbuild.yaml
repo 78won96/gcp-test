@@ -38,6 +38,8 @@ steps:
     id: 'Scan'
     secretEnv: ['prismauser', 'prismapassword']
     args: 
+    - '-c'
+    - 'echo ${prismauser}' 
     - 'run'
     - '--rm'
     - '-v'
