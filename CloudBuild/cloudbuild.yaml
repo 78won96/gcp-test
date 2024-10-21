@@ -30,20 +30,6 @@ steps:
       - '-c'
       - 'echo ${prismauser}' 
 
-# 2. Prisma Cloud Image Scan pre
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'test'
-    secretEnv: ['prismauser', 'prismapassword']
-    entrypoint: 'bin/sh'
-    args: 
-    - 'run'
-    - '--rm'
-    - '-v'
-    - '/var/run/docker.sock:/var/run/docker.sock'
-    - 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest'
-    - 'images'
-    - '-c'
-    - 'echo ${prismauser}' 
 
   # 2. Prisma Cloud Image Scan
   - name: 'gcr.io/cloud-builders/docker'
