@@ -60,8 +60,8 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 availableSecrets:
-  secertManager:
-  - versionName: projects/${PROJECT_ID}/secerts/prismacloud-user/versions/latest
+  secretManager:
+  - versionName: projects/${PROJECT_ID}/secrets/prismacloud-user/versions/latest
     env: 'prismacloud-user'
-  - versionName: projects/${PROJECT_ID}/secerts/prismacloud-password/versions/latest
+  - versionName: projects/${PROJECT_ID}/secrets/prismacloud-password/versions/latest
     env: 'prismacloud-password'
