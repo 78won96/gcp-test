@@ -38,7 +38,7 @@ steps:
       - 'TL_CONSOLE_URL=$_TWISTLOCK_URL'
       - 'TL_USER=$_TWISTLOCK_USER'
     secretEnv:  
-      - 'TL_PASS'
+      - 'prisampassword'
 
     substitutions:
      _TWISTLOCK_URL: '{{ Twistlock Console URL }}'
@@ -53,9 +53,9 @@ steps:
     - 'images'
     - 'scan'
     - '--address'
-    - '${address}'
+    - '${_TWISTLOCK_URL}'
     - '--user'
-    - '${prismauser}'
+    - '${_TWISTLOCK_USER}'
     - '--password'
     - '${prismapassword}'
     - '--details'
