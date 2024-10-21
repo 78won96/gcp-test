@@ -26,6 +26,7 @@ steps:
 # prismauser 값을 확인 
   - name: 'gcr.io/cloud-builders/docker'
     id: 'print-prismauser'
+    secretEnv: ['prismauser', 'prismapassword']
     entrypoint: 'bash'
     args:
       - '-c'
