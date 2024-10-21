@@ -4,6 +4,11 @@ steps:
   - name: 'alpine'
     args: ['sh', '-c', 'ls -al' ]
 
+  # 0. gcloud command 확인
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'checkout'
+    args: [ gcloud gcloud secrets versions access latest --secret=prismauser]
+
 
   # 1. 도커 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
