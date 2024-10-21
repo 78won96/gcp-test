@@ -1,4 +1,5 @@
 steps:
+
   # 0. CloudBuild 경로 확인
   - name: 'alpine'
     args: ['sh', '-c', 'ls -l ']
@@ -13,7 +14,7 @@ steps:
     
   # 2. Prisma Cloud Image Scan
   - name: 'gcr.io/cloud-builders/docker'
-  - id : Scan
+    id : 'Scan'
     args:
     - 'run'
     - '--rm'
@@ -39,7 +40,7 @@ steps:
             
   # 3. Cloud Run 동작
   - name: 'gcr.io/cloud-builders/gcloud'
-    id : Deploy
+    id : 'Deploy'
     args:
       - 'run'
       - 'deploy'
