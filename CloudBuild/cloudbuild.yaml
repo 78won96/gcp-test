@@ -23,6 +23,14 @@ steps:
       'build',   
       '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA', 'CloudBuild/']
 
+# prismauser 값을 확인 
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'print-prismauser'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'echo ${prismauser}' 
+
 
   # 2. Prisma Cloud Image Scan
   - name: 'gcr.io/cloud-builders/docker'
