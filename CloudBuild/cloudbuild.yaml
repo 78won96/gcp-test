@@ -82,7 +82,7 @@ options:
 secrets: 
   - kmsKeyName: projects/${PROJECT_ID}/locations/asia-northeast3/keyRings/prismapassword/cryptoKeys/prisma
     secretEnv:
-      TL_PASS:prisma
+      TL_PASS:prismascret.txt.encrypted
 
 ##availableSecrets:
 ##   secretManager:
