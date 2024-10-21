@@ -59,7 +59,7 @@ steps:
 options:
   logging: CLOUD_LOGGING_ONLY
 
-availableSecerts:
+availableSecrets:
   secertManager:
   - versionName: projects/${PROJECT_ID}/secerts/prismacloud-user/versions/latest
     env: 'prismacloud-user'
