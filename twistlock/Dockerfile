@@ -15,6 +15,7 @@ RUN curl --progress-bar -L \
     https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli \
    # chmod a+x twistcli; \
    -o /usr/local/bin/twistcli && \
+   chmod +x /usr/local/bin/twistcli \
    # cp ./twistcli /usr/local/bin/ \
    ls -l /usr/local/bin/twistcli
    # COPY ./twistcli /usr/local/bin/
