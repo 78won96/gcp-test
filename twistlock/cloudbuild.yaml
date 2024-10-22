@@ -15,3 +15,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest' ]
     id : 'push'
+  
+
+options:
+  logging: CLOUD_LOGGING_ONLY
