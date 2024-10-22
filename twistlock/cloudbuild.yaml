@@ -19,5 +19,5 @@ options:
 
 availableSecrets:
   secretManager:
-  - versionName: projects/${PROJECT_ID}/secrets/twistcli_token/versions/latest
+  - versionName: projects/${PROJECT_ID}/secrets/twsitcli_TOKEN/versions/latest
     env: 'twistcli_TOKEN'
