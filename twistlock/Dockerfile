@@ -12,7 +12,7 @@ RUN curl --progress-bar -L \
     --header "authorization: Bearer $$twistcli_TOKEN" \
     https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
 
-COPY twistcli /usr/local/bin/twistcli
+COPY ./twistcli /usr/local/bin/
 
-    # Set the entrypoint
+# Set the entrypoint
 ENTRYPOINT ["twistcli"]
