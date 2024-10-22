@@ -12,9 +12,9 @@ RUN apt update -y && \
 
 RUN curl --progress-bar -L \
     --header "authorization: Bearer $$twistcli_TOKEN" \
-    https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
+    https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli > twistcli; chmod a+x twistcli; \
    # -o /usr/local/bin/twistcli && \
-   cp ./twistcli /usr/local/bin/
+   cp ./twistcli /usr/local/bin/ \
    chmod a+x /usr/local/bin/twistcli
   
 
