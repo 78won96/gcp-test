@@ -17,6 +17,7 @@ steps:
 options:
   logging: CLOUD_LOGGING_ONLY
 
+# GCP Secret Manager 에 Token 을 등록해야 함.
 availableSecrets:
   secretManager:
   - versionName: projects/${PROJECT_ID}/secrets/twsitcli_TOKEN/versions/latest
