@@ -34,23 +34,17 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Scan'
     secretEnv:
-    - 'TL_PASS'  
+      ['address','prismuser', 'prismapassword']  
+    entrypoint: 'bash'
     args: 
-    - 'run'
-    - '--rm'
-    - '-v'
-    - '/var/run/docker.sock:/var/run/docker.sock'
-    - 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest'
-    - 'images'
-    - 'scan'
-    - '--address'
-    - '${_TWISTLOCK_URL}'
-    - '--user'
-    - '${_TWISTLOCK_USER}'
-    - '--password'
-    - '${TL_PASS}'
-    - '--details'
-    - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA'
+    - '-c'
+    - |
+        docker run --rm \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest \
+        images scan - --address ${prismauser}' \
+        user ${_TWISTLOCK_USER} --password ${prismapassword} \
+        details asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA
     
   
   # 2. Artifact Registry에 푸시하는 단계
@@ -78,20 +72,10 @@ steps:
 options:
   logging: CLOUD_LOGGING_ONLY
 
+
 availableSecrets:
-   inline:
-   - kmsKeyName: projects/${PROJECT_ID}/locations/asia-northeast3/keyRings/prismapassword/cryptoKeys/prisma
-     envMap:
-       USERNAME: 'TL_PASS'
-
-# secrets: 
-#  - kmsKeyName: projects/${PROJECT_ID}/locations/asia-northeast3/keyRings/prismapassword/cryptoKeys/prisma
-#    secretEnv:
-#      TL_PASS:$^@7ÛX^Oæ`Eh^ÉqwH^DB¹<8e><8a>5n^F^?J7ër4u'¦^SHê^UF^RE^@Z^Vãä¶N¸÷^\!¸/®B8Ý»<90>³õ$Ü^A¥\±<89>ee¤<88>#wÛóÖ^Rä+ÂÝ¿<9a>$/^Z´~V}<92>+Bù<90>KëGÑî'8)<93><87>ÇpÊ
-
-##availableSecrets:
-##   secretManager:
-  #   - versionName: projects/${PROJECT_ID}/secrets/prismauser/versions/1
-  #     env: 'prismauser'
-  #   - versionName: projects/${PROJECT_ID}/secrets/prismapassword/versions/1
-  #     env: 'prismapassword'
+  secretManager:
+    - versionName: projects/${PROJECT_ID}/secrets/prismauser/versions/latest
+      env: 'prismauser'
+    - versionName: projects/${PROJECT_ID}/secrets/prismapassword/versions/latest
+      env: 'prismapassword'
