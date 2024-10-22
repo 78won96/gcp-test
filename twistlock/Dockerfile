@@ -16,9 +16,10 @@ RUN curl --progress-bar -L \
    # chmod a+x twistcli; \
    -o /usr/local/bin/twistcli \
    # cp ./twistcli /usr/local/bin/ \
-   chmod +x /usr/local/bin/twistcli \
    ls -l /usr/local/bin/twistcli
    # COPY ./twistcli /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/twistcli 
 
 # Set the entrypoint
 ENTRYPOINT ["twistcli"]
