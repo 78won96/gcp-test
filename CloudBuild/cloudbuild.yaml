@@ -1,18 +1,18 @@
 steps:
 
   # 0. CloudBuild 경로 확인
-  - name: 'alpine'
-    args: ['sh', '-c', 'ls -al' ]
+#  - name: 'alpine'
+#    args: ['sh', '-c', 'ls -al' ]
 
   # 0. gcloud command로 secretEnv 확인
-  - name: 'gcr.io/cloud-builders/gcloud'
-    id: 'checkout'
-    args:
-      - 'secrets'
-      - 'versions'
-      - 'access'
-      - 'latest'
-      - '--secret=prismauser'
+# - name: 'gcr.io/cloud-builders/gcloud'
+#   id: 'checkout'
+#   args:
+#    - 'secrets'
+#    - 'versions'
+#    - 'access'
+#    - 'latest'
+#    - '--secret=prismauser'
 
   # 1. 도커 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
@@ -22,19 +22,17 @@ steps:
       '-t', 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA', 'CloudBuild/']
 
 # prismauser 값을 확인 
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'print-prismauser'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - 'echo ${prismauser}' 
+#  - name: 'gcr.io/cloud-builders/docker'
+#    id: 'print-prismauser'
+#    entrypoint: 'bash'
+#    args:
+#      - '-c'
+#      - 'echo ${prismauser}' 
 
 
   # 2. Prisma Cloud Image Scan
   - name: 'gcr.io/cloud-builders/docker'
-    id: 'Scan'
-    secretEnv:
-      ['address','prismauser', 'prismapassword']  
+    id: 'scan'
     entrypoint: 'bash'
     args: 
     - '-c'
@@ -46,6 +44,8 @@ steps:
         user ${prismauser} --password ${prismapassword} \
         details asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA
     
+    secretEnv:
+      ['address', 'prismauser', 'prismapassword'] 
   
   # 2. Artifact Registry에 푸시하는 단계
   - name: 'gcr.io/cloud-builders/docker'
