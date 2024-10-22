@@ -1,4 +1,4 @@
-FROM alpine
+FROM ubuntu:latest
 
 # Install dependencies and clean up
 RUN apt-get update -y && \
