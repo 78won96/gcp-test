@@ -22,4 +22,4 @@ RUN curl --progress-bar -L \
 RUN chmod +x /usr/local/bin/twistcli 
 
 # Set the entrypoint
-ENTRYPOINT ["twistcli"]
+ENTRYPOINT ["/usr/local/bin/twistcli"]
