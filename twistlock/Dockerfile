@@ -1,8 +1,8 @@
 FROM alpine
 
 # Install dependencies and clean up
-RUN apt update -y && \
-    apt install -y python3-pip git curl wget node-hawk node-minimist && \
+RUN apt-get update -y && \
+    apt-get install -y python3-pip git curl wget node-hawk node-minimist && \
     pip3 --no-cache-dir install --upgrade awscli boto3 && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
