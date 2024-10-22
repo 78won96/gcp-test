@@ -42,8 +42,8 @@ steps:
         docker run --rm \
         -v /var/run/docker.sock:/var/run/docker.sock \
         asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest \
-        images scan - --address ${prismauser}' \
-        user ${_TWISTLOCK_USER} --password ${prismapassword} \
+        images scan --address ${address}' \
+        user ${prismauser} --password ${prismapassword} \
         details asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA
     
   
