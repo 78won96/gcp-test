@@ -14,7 +14,7 @@ RUN sudo curl --progress-bar -L \
     --header "authorization: Bearer $$twistcli_TOKEN" \
     https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli \ 
     # > twistcli; chmod a+x twistcli;
-    -o /usr/local/bin/ && \
+    -o /usr/local/bin/twistcli && \
     sudo chmod a+x /usr/local/bin/twistcli
 
 
