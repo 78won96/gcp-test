@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
 # Install dependencies and clean up
 RUN apt update -y && \
