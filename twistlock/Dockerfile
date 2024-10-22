@@ -1,4 +1,4 @@
-FROM busybox:latest
+FROM ubuntu:latest
 
 # Install dependencies and clean up
 RUN apt update -y && \
