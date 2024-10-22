@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM busybox:latest
 
 # Install dependencies and clean up
 RUN apt update -y && \
