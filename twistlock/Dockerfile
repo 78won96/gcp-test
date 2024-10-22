@@ -3,13 +3,15 @@ FROM ubuntu:22.04
 # Install dependencies and clean up
 RUN apt-get update -y && \
     apt-get install -y python3-pip git curl wget node-hawk node-minimist && \
-    pip3 --no-cache-dir install --upgrade awscli boto3 && \
+    pip3 --no-cache-dir \
+ # for aws
+ #  install --upgrade awscli boto3 && \ 
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Download twistcli binary
 RUN curl --progress-bar -L \
-    --header "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoianV3b24ubGVlQHUtaW5mcmEuY29tIiwicm9sZSI6ImFkbWluIiwicm9sZVBlcm1zIjpbWzI1NSwyNTUsMjU1LDI1NSwyNTUsOTVdLFsyNTUsMjU1LDI1NSwyNTUsMjU1LDk1XV0sInNlc3Npb25UaW1lb3V0U2VjIjo1OTksInNhYXNUb2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SnpkV0lpT2lKcWRYZHZiaTVzWldWQWRTMXBibVp5WVM1amIyMGlMQ0p6WlhKMmFXTmxWWE5oWjJWUGJteDVJanAwY25WbExDSm1hWEp6ZEV4dloybHVJanBtWVd4elpTd2ljSEpwYzIxaFNXUWlPaUl4TWpBd016UXhOVEV4TlRFME9URTVPVE0ySWl3aWFYQkJaR1J5WlhOeklqb2lNelV1TWpBd0xqRXlNeTR5TXpZaUxDSnBjM01pT2lKb2RIUndjem92TDJGd2FTNXFjQzV3Y21semJXRmpiRzkxWkM1cGJ5SXNJbkpsYzNSeWFXTjBJam93TENKMWMyVnlVbTlzWlZSNWNHVkVaWFJoYVd4eklqcDdJbWhoYzA5dWJIbFNaV0ZrUVdOalpYTnpJanBtWVd4elpYMHNJblZ6WlhKU2IyeGxWSGx3WlU1aGJXVWlPaUpUZVhOMFpXMGdRV1J0YVc0aUxDSnBjMU5UVDFObGMzTnBiMjRpT21aaGJITmxMQ0pzWVhOMFRHOW5hVzVVYVcxbElqb3hOekk1TlRZNE5UYzFNakV4TENKaGRXUWlPaUpvZEhSd2N6b3ZMMkZ3YVM1cWNDNXdjbWx6YldGamJHOTFaQzVwYnlJc0luVnpaWEpTYjJ4bFZIbHdaVWxrSWpveExDSmhkWFJvTFcxbGRHaHZaQ0k2SWxCQlRsOVRRVTFNTWlJc0luTmxiR1ZqZEdWa1EzVnpkRzl0WlhKT1lXMWxJam9pVlMxSmJtWnlZU0JEYnk0c0lFeDBaQzRnTFNBek5qY3lNVFV4TXpBNE5UVXhNVEV6TlRjd0lpd2ljMlZ6YzJsdmJsUnBiV1Z2ZFhRaU9qWXdMQ0oxYzJWeVVtOXNaVWxrSWpvaVkyVTVNMkkxTlRJdE9UWXpOQzAwWm1FMUxUZ3pOVGd0TldJd00yWm1PR05pWWpNMUlpd2lhR0Z6UkdWbVpXNWtaWEpRWlhKdGFYTnphVzl1Y3lJNmRISjFaU3dpWlhod0lqb3hOekk1TlRZNU1UZ3dMQ0pwWVhRaU9qRTNNamsxTmpnMU9EQXNJblZ6WlhKdVlXMWxJam9pYW5WM2IyNHViR1ZsUUhVdGFXNW1jbUV1WTI5dElpd2lkWE5sY2xKdmJHVk9ZVzFsSWpvaVUzbHpkR1Z0SUVGa2JXbHVJbjAuZkI2QUt5bm5hQW56dlhNRG9mTEplSDJOM2tVYk02NVFadXJWZlJlWE53cyIsImlzcyI6InR3aXN0bG9jayIsImV4cCI6MTcyOTU3MjE4MX0._fluR0rEUNSSlm10SAoOofvr8VpkLNtgkP-iZykshjg" \
+    --header ${twistcli_TOKEN}" \
     https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli \
     -o /usr/local/bin/twistcli && \
     chmod a+x /usr/local/bin/twistcli
