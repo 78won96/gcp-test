@@ -8,12 +8,14 @@ RUN apt update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Download twistcli binary
-RUN curl --progress-bar -L \
+
+
+RUN sudo curl --progress-bar -L \
     --header "authorization: Bearer $$twistcli_TOKEN" \
     https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli \ 
     # > twistcli; chmod a+x twistcli;
-    -o /usr/local/bin/twistcli && \
-    chmod a+x /usr/local/bin/twistcli
+    -o /usr/local/bin/ && \
+    sudo chmod a+x /usr/local/bin/twistcli
 
 
 
