@@ -35,7 +35,7 @@ steps:
     id: 'Scan'
     secretEnv:
       ['address','prismauser', 'prismapassword']  
-    entrypoint: 'bash'
+    entrypoint: 'sh'
     args: 
     - '-c'
     - |
