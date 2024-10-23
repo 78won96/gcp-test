@@ -1,0 +1,17 @@
+export SA=jenkins-sa-ljw
+export PROJECT_ID=flash-physics-368407
+export SA_EMAIL=${SA}@${PROJECT_ID}.iam.gserviceaccount.com
+
+
+gcloud iam service-accounts create $SA
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:$SA_EMAIL" \
+  --role="roles/source.writer"
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$SA_EMAIL \
+  --role roles/container.developer
+
+
+  gcloud iam service-accounts keys create ~/jenkins-key-ljw.json --iam-account $SA_EMAIL

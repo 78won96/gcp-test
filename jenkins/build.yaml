@@ -1,0 +1,64 @@
+label = "image-scan"
+
+ 
+
+podTemplate(label: label, containers: [
+
+    containerTemplate(name: "gcloud", image: "google/cloud-sdk:alpine", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
+
+    containerTemplate(name: "ubuntu", image: "ubuntu", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
+
+],
+
+    volumes: [
+
+        hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock"),
+
+    ],
+
+) 
+{
+
+    node(label) {
+
+        stage('Docker') {
+
+            container("gcloud") {
+
+                    withCredentials([file(credentialsId: 'flash-physics-368407', variable: 'GOOGLE_AUTH')]) {
+
+                    sh "gcloud auth activate-service-account --key-file=${GOOGLE_AUTH}"
+
+                    sh "gcloud --quiet auth configure-docker"
+
+                    sh "gcloud --quiet auth configure-docker asia-northeast3-docker.pkg.dev"
+
+                    sh "docker pull gcr.io/google-samples/hello-app:1.0"
+
+                    sh "docker images"
+
+                }
+            }
+        }
+        stage ('Prisma Cloud scan') { // See 6
+            try {   
+                    prismaCloudScanImage ca: '',
+                    cert: '',
+                    containerized:true,
+                    image: 'gcr.io/google-samples/hello-app:1.0',
+                    dockerAddress: 'unix:///var/run/docker.sock',
+                    project: '',
+                    ignoreImageBuildTime: true,
+                    key: '',
+                    logLevel: 'info',
+                    podmanPath: '',
+                    resultsFile: 'prisma-cloud-scan-results.json'
+        }  catch (all) {
+           currentBuild.result = 'FAILURE'
+      }
+        }
+        stage ('Prisma Cloud publish') { // Prisma Scanning Result
+        prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+        }
+      }
+   }
