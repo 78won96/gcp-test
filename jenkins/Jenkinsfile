@@ -26,7 +26,7 @@ podTemplate(label: label, containers: [
 
             container("gcloud") {
 
-                    withCredentials([file(credentialsId: 'gke-sa', variable: 'GOOGLE_AUTH')]) {
+                    withCredentials([file(credentialsId: 'gke-secret', variable: 'GOOGLE_AUTH')]) {
 
                     sh "gcloud auth activate-service-account --key-file=${GOOGLE_AUTH}"
 
