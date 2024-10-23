@@ -28,15 +28,15 @@ podTemplate(label: label, containers: [
 
                     withCredentials([file(credentialsId: 'gke-secret', variable: 'GOOGLE_AUTH')]) {
 
-                    sh "gcloud auth activate-service-account --key-file=${GOOGLE_AUTH}"
+                    sh ("gcloud auth activate-service-account --key-file=${GOOGLE_AUTH}")
 
-                    sh "gcloud --quiet auth configure-docker"
+                    sh ("gcloud --quiet auth configure-docker")
 
-                    sh "gcloud --quiet auth configure-docker asia-northeast3-docker.pkg.dev"
+                    sh ("gcloud --quiet auth configure-docker asia-northeast3-docker.pkg.dev")
 
-                    sh "docker pull gcr.io/google-samples/hello-app:1.0"
+                    sh ("docker pull gcr.io/google-samples/hello-app:1.0")
 
-                    sh "docker images"
+                    sh ("docker images")
 
                 }
             }
