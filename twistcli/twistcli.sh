@@ -8,3 +8,4 @@
 curl -k -u $$prismauser:$$prismapassword= --output /twistcli $address
 chmod a+x /twistcli
 /twistcli images scan --details -address $address -u $$prismauser -p $$prismapassword
+
