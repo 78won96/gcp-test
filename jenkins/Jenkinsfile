@@ -47,4 +47,4 @@ podTemplate(label: label, containers: [
         prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
         }
       }
-   }
+  
