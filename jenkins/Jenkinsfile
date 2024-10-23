@@ -41,10 +41,5 @@ podTemplate(label: label, containers: [
                 }
             }
         }
-      
-        }
-        stage ('Prisma Cloud publish') { // Prisma Scanning Result
-        prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
-        }
-      }
-  
+    }
+}
