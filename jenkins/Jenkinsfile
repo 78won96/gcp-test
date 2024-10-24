@@ -1,4 +1,4 @@
-steps:
+
 label = "image-scan"
 
 podTemplate(label: label, containers: [
