@@ -1,5 +1,5 @@
 
-label = "image-scan"
+label = "Pod-temp-ljw"
 
 podTemplate(label: label, containers: [
 
