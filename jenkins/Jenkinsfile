@@ -28,9 +28,9 @@ podTemplate(label: label, containers: [
 
                     sh '''
                     gcloud auth activate-service-account --key-file="$GOOGLE_AUTH"
-                    gcloud --quiet auth configure-docker
-                    gcloud --quiet auth configure-docker asia-northeast3-docker.pkg.dev
-                    docker pull gcr.io/google-samples/hello-app:1.0
+                  #  gcloud --quiet auth configure-docker
+                  #  gcloud --quiet auth configure-docker asia-northeast3-docker.pkg.dev
+                  #  docker pull gcr.io/google-samples/hello-app:1.0
                     docker images
                 '''
 
