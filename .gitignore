@@ -2,3 +2,4 @@ secret.txt
 twistcli/twistcli.sh
 jenkins/jenkins-key-ljw.json
 jenkins/gcp_config.txt
+jenkins_iac/jenkins_config
