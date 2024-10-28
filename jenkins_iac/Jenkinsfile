@@ -28,15 +28,16 @@ podTemplate(label: label, containers: [
                     unstash 'source'
                     // try {
                         // PRISMA_API_URL 환경 변수를 사용하여 명령 실행
-                        sh """
+                        sh '''
 
                         checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --bc-api-key ${pc_user}::${pc_password} 
                         --prisma-api-url ${PRISMA_API_URL} 
                         --repo-id 78won96/GCP-Project-ljw --branch main
 
-                        """
+                        
                         sh 'ls -l results.xml' // results.xml이 생성되었는지 확인
                         junit skipPublishingChecks: true, testResults: 'results.xml'
+                        '''
                     //} catch (err) {
                        // sh 'ls -l results.xml' // 에러가 발생했을 때도 확인
                        // junit skipPublishingChecks: true, testResults: 'results.xml'
