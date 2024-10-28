@@ -27,10 +27,11 @@ podTemplate(label: label, containers: [
                    withCredentials([file(credentialsId: 'gke-sa-secret', variable: 'GOOGLE_AUTH')]) {
 
                 sh '''
+                    gcloud auth login
                     gcloud auth activate-service-account --key-file="$GOOGLE_AUTH"
                     gcloud --quiet auth configure-docker
                     gcloud --quiet auth configure-docker asia-northeast3-docker.pkg.dev
-                    docker pull gcr.io/google-samples/hello-app:1.0
+                    docker pull asia-northeast3-docker.pkg.dev/flash-physics-368407/gcp-project-ljw/cloudbuild-test:latest
                     docker images
                 '''
 
@@ -63,6 +64,7 @@ podTemplate(label: label, containers: [
                    withCredentials([file(credentialsId: 'gke-sa-secret', variable: 'GOOGLE_AUTH')]) {
                  
                  sh '''
+                    gcloud auth login
                     gcloud auth activate-service-account --key-file="$GOOGLE_AUTH"
                     docker image tag gcr.io/google-samples/hello-app:1.0 asia-northeast3-docker.pkg.dev/flash-physics-368407/jenkins-repo/hello-app-scaned:latest
                     docker images
