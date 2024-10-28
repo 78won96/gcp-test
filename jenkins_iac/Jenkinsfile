@@ -19,8 +19,13 @@ podTemplate(label: label, containers: [
     node(label) {
         stage('Checkout') {
             container("gcloud") {
+                 withCredentials([file(credentialsId: 'gke-sa-secret', variable: 'GOOGLE_AUTH')]) {
+               sh '''
+                gcloud auth activate-service-account --key-file=${GOOGLE_AUTH}
                 git branch: 'main', url: 'https://github.com/78won96/GCP-Project-ljw.git'
                 stash includes: '**/*', name: 'source'
+                '''
+                }
             }
         }
         stage('Checkov') {
