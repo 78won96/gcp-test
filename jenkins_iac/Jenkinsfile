@@ -1,4 +1,4 @@
-def label = "Pod-temp-ljw"
+label = "Pod-temp-ljw"
 
 podTemplate(label: label, containers: [
 
@@ -11,20 +11,23 @@ podTemplate(label: label, containers: [
 
 ], volumes: [
     hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock"),
-]) {
+
+]
+) 
+{
     environment {
         PRISMA_API_URL="https://api.jp.prismacloud.io"
     }
 
-    stages {
+    node(label){
         stage('Checkout') {
-            steps {
+            container("checkov") {
                 git branch: 'main', url: 'https://github.com/78won96/GCP-Project-ljw.git'
                 stash includes: '**/*', name: 'source'
             }
         }
         stage('Checkov') {
-            steps {
+            container("checkov") {
                 withCredentials([string(credentialsId: 'PC_USER', variable: 'pc_user'), string(credentialsId: 'PC_PASSWORD', variable: 'pc_password')]) {
                     container('checkov') { // Run Checkov commands within the Checkov container
                         unstash 'source'
