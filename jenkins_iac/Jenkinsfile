@@ -18,7 +18,7 @@ podTemplate(label: label, containers: [
 
     node(label) {
         stage('Checkout') {
-            container("checkov") {
+            container("gcloud") {
                 git branch: 'main', url: 'https://github.com/78won96/GCP-Project-ljw.git'
                 stash includes: '**/*', name: 'source'
             }
