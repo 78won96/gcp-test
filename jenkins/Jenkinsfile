@@ -77,4 +77,4 @@ podTemplate(label: label, containers: [
 }
 
 
-#Artifact Registry Pull image -> Prisma Cloud Image Scan -> Artifact Registry Push Image
+// Artifact Registry Pull image -> Prisma Cloud Image Scan -> Artifact Registry Push Image
