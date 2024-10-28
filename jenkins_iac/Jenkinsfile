@@ -1,7 +1,7 @@
 def label = "Pod-temp-ljw"
 
 environment {
-    PRISMA_API_URL = "https://asia-northeast1.cloud.twistlock.com/japan-1167212692"
+    PRISMA_API_URL = "https://api.jp.prismacloud.io"
 }
 
 podTemplate(label: label, containers: [
