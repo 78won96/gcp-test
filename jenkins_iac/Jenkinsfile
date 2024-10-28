@@ -34,8 +34,10 @@ podTemplate(label: label, containers: [
                         --prisma-api-url ${PRISMA_API_URL} \
                         --repo-id 78won96/GCP-Project-ljw --branch main
                         """
+                        sh 'ls -l results.xml' // results.xml이 생성되었는지 확인
                         junit skipPublishingChecks: true, testResults: 'results.xml'
                     } catch (err) {
+                        sh 'ls -l results.xml' // 에러가 발생했을 때도 확인
                         junit skipPublishingChecks: true, testResults: 'results.xml'
                         throw err
                     }
