@@ -37,5 +37,25 @@ podTemplate(label: label, containers: [
                 }
             }
         }
+        stage ('Prisma Cloud scan') { // See 6
+            try {   
+                    prismaCloudScanImage ca: '',
+                    cert: '',
+                    containerized:true,
+                    image: 'gcr.io/google-samples/hello-app:1.0',
+                    dockerAddress: 'unix:///var/run/docker.sock',
+                    project: '',
+                    ignoreImageBuildTime: true,
+                    key: '',
+                    logLevel: 'info',
+                    podmanPath: '',
+                    resultsFile: 'prisma-cloud-scan-results.json'
+        }  catch (all) {
+           currentBuild.result = 'FAILURE'
+      }
+        }
+        stage ('Prisma Cloud publish') { // Prisma Scanning Result
+        prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+        }
     }
 }

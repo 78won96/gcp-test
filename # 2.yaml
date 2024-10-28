@@ -1,0 +1,65 @@
+# 2. Prisma Cloud Image Scan
+  - name: 'gcr.io/cloud-builders/docker'
+    id : 'Scan'
+    args: 
+    - 'run'
+    - '--rm'
+    - '-v'
+    - '/var/run/docker.sock:/var/run/docker.sock'
+    - 'asia-northeast3-docker.pkg.dev/flash-physics-368407/twistlock/twistlock:latest'
+    - 'images'
+    - 'scan'
+    - '--address'
+    - 'https://asia-northeast1.cloud.twistlock.com/japan-1167212692'
+    - '--user'
+    - '${prismacloud-user}'
+    - '--password'
+    - '${prismacloud-password}'
+    - '--details'
+    - 'asia-northeast3-docker.pkg.dev/${PROJECT_ID}/$REPO_NAME/cloudbuild-test:$SHORT_SHA'
+
+
+
+
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'my-image', '.']
+    secretEnv:
+      API_KEY: projects/your-project-id/secrets/my-api-key/versions/latest
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'my-image', '.']
+    secretEnv:
+      API_KEY: projects/your-project-id/secrets/my-api-key/versions/latest
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['run', '--rm', '-v', '/var/run/docker.sock:/var/run/docker.sock', 'my-image', 'your-command', '$API_KEY']
+
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'my-image', '.']
+    secretEnv:
+      API_KEY: projects/your-project-id/secrets/my-api-key/versions/latest
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['run', '--rm', '-v', '/var/run/docker.sock:/var/run/docker.sock', 'my-image', 'your-command', '$API_KEY']
+
+
+
+
+availableSecrets:
+   secretManager:
+     - versionName: projects/${PROJECT_ID}/secrets/prismauser/versions/1
+       env: 'prismauser'
+     - versionName: projects/${PROJECT_ID}/secrets/prismapassword/versions/1
+       env: 'prismapassword'
+
+
+
+  gcloud kms encrypt \
+    --location "asia-northeast3" \
+    --keyring "prismapassword" \
+    --key "prisma" \
+    --plaintext-file ./prismascret.txt \
+    --ciphertext-file ./prismascret.txt.encrypted
