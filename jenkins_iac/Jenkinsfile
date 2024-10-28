@@ -38,8 +38,8 @@ podTemplate(label: label, containers: [
                         sh 'ls -l results.xml' // results.xml이 생성되었는지 확인
                         junit skipPublishingChecks: true, testResults: 'results.xml'
                     //} catch (err) {
-                        sh 'ls -l results.xml' // 에러가 발생했을 때도 확인
-                        junit skipPublishingChecks: true, testResults: 'results.xml'
+                       // sh 'ls -l results.xml' // 에러가 발생했을 때도 확인
+                       // junit skipPublishingChecks: true, testResults: 'results.xml'
                       //  throw err
                     }
                 }
