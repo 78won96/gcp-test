@@ -15,3 +15,9 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 
 
   gcloud iam service-accounts keys create ~/jenkins-key-ljw.json --iam-account $SA_EMAIL
+
+
+  #IAM role
+  - Artifact Registry Repository Administrator
+  - Kubernetes Engine Developer
+  - Source Repository Writer
