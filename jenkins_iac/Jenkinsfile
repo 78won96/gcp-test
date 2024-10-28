@@ -6,10 +6,6 @@ environment {
 
 podTemplate(label: label, containers: [
 
-    containerTemplate(name: "gcloud", image: "google/cloud-sdk:alpine", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
-    
-    containerTemplate(name: "ubuntu", image: "ubuntu", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
-
     containerTemplate(name: "checkov", image: "bridgecrew/checkov:latest", command: "cat", ttyEnabled: true, alwaysPullImage: true)
 
 ], volumes: [
@@ -26,8 +22,9 @@ podTemplate(label: label, containers: [
         }
         }
         stage('Checkov') {
+            withCredentials([string(credentialsId: 'PC_USER', variable: 'pc_user'), string(credentialsId: 'PC_PASSWORD', variable: 'pc_password')]) {
             container("checkov") {
-                withCredentials([string(credentialsId: 'PC_USER', variable: 'pc_user'), string(credentialsId: 'PC_PASSWORD', variable: 'pc_password')]) {
+               
                     unstash 'source'
                     // try {
                         // PRISMA_API_URL 환경 변수를 사용하여 명령 실행
