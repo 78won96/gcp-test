@@ -43,7 +43,7 @@ podTemplate(label: label, containers: [
                     prismaCloudScanImage ca: '',
                     cert: '',
                     containerized:true,
-                    image: 'gcr.io/google-samples/hello-app:1.0',
+                    image: 'asia-northeast3-docker.pkg.dev/flash-physics-368407/gcp-project-ljw/cloudbuild-test:latest',
                     dockerAddress: 'unix:///var/run/docker.sock',
                     project: '',
                     ignoreImageBuildTime: true,
