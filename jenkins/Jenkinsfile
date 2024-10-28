@@ -65,9 +65,9 @@ podTemplate(label: label, containers: [
                  
                  sh '''
                     gcloud auth activate-service-account --key-file="$GOOGLE_AUTH"
-                    docker image tag asia-northeast3-docker.pkg.dev/flash-physics-368407/gcp-project-ljw/cloudbuild-test:latest asia-northeast3-docker.pkg.dev/flash-physics-368407/jenkins-repo/cloud-build:latest
+                    docker image tag asia-northeast3-docker.pkg.dev/flash-physics-368407/gcp-project-ljw/cloudbuild-test:latest asia-northeast3-docker.pkg.dev/flash-physics-368407/jenkins-repo/cloud-build-scanned:latest
                     docker images
-                    docker push asia-northeast3-docker.pkg.dev/flash-physics-368407/jenkins-repo/cloud-build:latest
+                    docker push asia-northeast3-docker.pkg.dev/flash-physics-368407/jenkins-repo/cloud-build-scanned:latest
                     
                 '''   
                 }
