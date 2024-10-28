@@ -1,4 +1,4 @@
-def label = "Pod-temp-ljw"
+label = "Pod-temp-ljw"
 
 environment {
     PRISMA_API_URL = "https://api.jp.prismacloud.io"
@@ -17,15 +17,7 @@ podTemplate(label: label, containers: [
 ]) {
 
     node(label) {
-        stage('Checkout') {
-            container("gcloud") {
-                 withCredentials([file(credentialsId: 'gke-sa-secret', variable: 'GOOGLE_AUTH')]) {
-               sh '''
-                gcloud auth activate-service-account --key-file=${GOOGLE_AUTH} 
-                '''
-                }
-            }
-        }
+       
         stage('gitclone') {
             container("checkov") {
                git branch: 'main', url: 'https://github.com/78won96/GCP-Project-ljw.git' 
@@ -37,21 +29,23 @@ podTemplate(label: label, containers: [
             container("checkov") {
                 withCredentials([string(credentialsId: 'PC_USER', variable: 'pc_user'), string(credentialsId: 'PC_PASSWORD', variable: 'pc_password')]) {
                     unstash 'source'
-                    try {
+                    // try {
                         // PRISMA_API_URL 환경 변수를 사용하여 명령 실행
                         sh """
+
                         checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --bc-api-key ${pc_user}::${pc_password} 
                         --prisma-api-url ${PRISMA_API_URL} 
                         --repo-id 78won96/GCP-Project-ljw --branch main
+
                         """
                         sh 'ls -l results.xml' // results.xml이 생성되었는지 확인
                         junit skipPublishingChecks: true, testResults: 'results.xml'
-                    } catch (err) {
+                    //} catch (err) {
                         sh 'ls -l results.xml' // 에러가 발생했을 때도 확인
                         junit skipPublishingChecks: true, testResults: 'results.xml'
-                        throw err
+                      //  throw err
                     }
                 }
             }
         }
-    }
+    
