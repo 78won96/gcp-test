@@ -32,13 +32,13 @@ podTemplate(label: label, containers: [
 
                     // Checkov 실행
                     sh """
-                    checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --bc-api-key ${pc_user}::${pc_password} 
-                    --prisma-api-url https://api.jp.prismacloud.io
-                    --repo-id 78won96/GCP-Project-ljw --branch main
+                    checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --bc-api-key ${pc_user}::${pc_password} \
+                    --prisma-api-url https://api.jp.prismacloud.io \
+                    --repo-id 78won96/GCP-Project-ljw --branch main \
                     """
 
                     // results.xml 파일이 생성되었는지 확인
-                    sh 'ls -l results.xml'
+                    // sh 'ls -l results.xml'
                     // JUnit 테스트 결과 게시
                     junit skipPublishingChecks: true, testResults: 'results.xml'
                 }
