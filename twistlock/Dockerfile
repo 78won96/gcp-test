@@ -11,15 +11,15 @@ RUN apt update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Download twistcli binary
+# twistcli_TOKEN key 값은 one time 이므로 build 시 새로운 key 값을 Secret Manager 에 등록 필요
 RUN curl --progress-bar -L --header "authorization: Bearer ${twistcli_TOKEN}" \
     https://asia-northeast1.cloud.twistlock.com/japan-1167212692/api/v1/util/twistcli > twistcli; \
     chmod a+x twistcli
 
 RUN mv ./twistcli /usr/local/bin/ 
 RUN chmod +x /usr/local/bin/twistcli
-
-
 RUN ls -l /usr/local/bin/twistcli
 
 # Set entrypoint to twistcli
 ENTRYPOINT ["/usr/local/bin/twistcli"]
+
