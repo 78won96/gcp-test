@@ -1,4 +1,8 @@
-label = "Pod-temp-ljw"
+def label = "Pod-temp-ljw"
+
+environment {
+    PRISMA_API_URL = "https://asia-northeast1.cloud.twistlock.com/japan-1167212692"
+}
 
 podTemplate(label: label, containers: [
 
@@ -6,20 +10,13 @@ podTemplate(label: label, containers: [
     
     containerTemplate(name: "ubuntu", image: "ubuntu", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
 
-    // Define a Checkov container
     containerTemplate(name: "checkov", image: "bridgecrew/checkov:latest", command: "cat", ttyEnabled: true, alwaysPullImage: true)
 
 ], volumes: [
     hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock"),
+]) {
 
-]
-) 
-{
-    environment {
-      PRISMA_API_URL="https://api.jp.prismacloud.io"
-    }
-
-    node(label){
+    node(label) {
         stage('Checkout') {
             container("checkov") {
                 git branch: 'main', url: 'https://github.com/78won96/GCP-Project-ljw.git'
@@ -29,17 +26,18 @@ podTemplate(label: label, containers: [
         stage('Checkov') {
             container("checkov") {
                 withCredentials([string(credentialsId: 'PC_USER', variable: 'pc_user'), string(credentialsId: 'PC_PASSWORD', variable: 'pc_password')]) {
-                    container('checkov') { // Run Checkov commands within the Checkov container
-                        unstash 'source'
-                        try {
-                            sh 'checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --bc-api-key ${pc_user}::${pc_password} \
-                            --prisma-api-url https://asia-northeast1.cloud.twistlock.com/japan-1167212692 \
-                            --repo-id 78won96/GCP-Project-ljw --branch main'
-                            junit skipPublishingChecks: true, testResults: 'results.xml'
-                        } catch (err) {
-                            junit skipPublishingChecks: true, testResults: 'results.xml'
-                            throw err
-                        }
+                    unstash 'source'
+                    try {
+                        // PRISMA_API_URL 환경 변수를 사용하여 명령 실행
+                        sh """
+                        checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --bc-api-key ${pc_user}::${pc_password} \
+                        --prisma-api-url ${PRISMA_API_URL} \
+                        --repo-id 78won96/GCP-Project-ljw --branch main
+                        """
+                        junit skipPublishingChecks: true, testResults: 'results.xml'
+                    } catch (err) {
+                        junit skipPublishingChecks: true, testResults: 'results.xml'
+                        throw err
                     }
                 }
             }
