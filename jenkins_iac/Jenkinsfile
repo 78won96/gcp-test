@@ -15,8 +15,8 @@ podTemplate(label: label, containers: [
 ]
 ) 
 {
-    // environment {
-    //   PRISMA_API_URL="https://api.jp.prismacloud.io"
+    environment {
+      PRISMA_API_URL="https://api.jp.prismacloud.io"
     }
 
     node(label){
@@ -43,4 +43,4 @@ podTemplate(label: label, containers: [
             }
         }
     }
-
+}
