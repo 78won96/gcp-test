@@ -1,6 +1,8 @@
 
 label = "Pod-temp-ljw"
 
+def gcpProject = 'flash-physics-368407'
+
 podTemplate(label: label, containers: [
 
     containerTemplate(name: "gcloud", image: "google/cloud-sdk:alpine", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
