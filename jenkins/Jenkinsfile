@@ -63,6 +63,7 @@ podTemplate(label: label, containers: [
                    withCredentials([file(credentialsId: 'gke-sa-secret', variable: 'GOOGLE_AUTH')]) {
                  sh '''
                     gcloud auth activate-service-account --key-file="$GOOGLE_AUTH"
+                    docker build -t sia-northeast3-docker.pkg.dev/flash-physics-368407/jenkins-repo/hello-app-scaned:latest .
                     docker images
                     docker push asia-northeast3-docker.pkg.dev/flash-physics-368407/jenkins-repo
                     
