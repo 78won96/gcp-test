@@ -70,4 +70,5 @@ podTemplate(label: label, containers: [
                 }
              }
         } 
+    }
 }
