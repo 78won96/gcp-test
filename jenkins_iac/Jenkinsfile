@@ -15,7 +15,7 @@ podTemplate(label: label, containers: [
     node(label) {
        
         stage('gitclone') {
-            container("checkov") {
+            container('checkov') {
                git branch: 'main', url: 'https://github.com/78won96/GCP-Project-ljw.git' 
                stash includes: '**/*', name: 'source' 
             }
@@ -23,7 +23,7 @@ podTemplate(label: label, containers: [
         }
         stage('Checkov') {
             withCredentials([string(credentialsId: 'PC_USER', variable: 'pc_user'), string(credentialsId: 'PC_PASSWORD', variable: 'pc_password')]) {
-            container("checkov") {
+            container('checkov') {
                
                     unstash 'source'
                     // try {
@@ -33,8 +33,6 @@ podTemplate(label: label, containers: [
                         checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --bc-api-key ${pc_user}::${pc_password} \
                         --prisma-api-url ${PRISMA_API_URL} \
                         --repo-id 78won96/GCP-Project-ljw --branch main \
-
-                        
                         ls -l results.xml \
                         junit skipPublishingChecks: true, testResults: 'results.xml'
                         '''
