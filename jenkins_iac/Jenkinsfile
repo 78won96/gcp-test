@@ -35,7 +35,7 @@ podTemplate(label: label, containers: [
                         --repo-id 78won96/GCP-Project-ljw --branch main
 
                         
-                        sh 'ls -l results.xml' // results.xml이 생성되었는지 확인
+                        ls -l results.xml 
                         junit skipPublishingChecks: true, testResults: 'results.xml'
                         '''
                     //} catch (err) {
