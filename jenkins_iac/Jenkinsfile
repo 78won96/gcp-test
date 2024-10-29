@@ -17,16 +17,17 @@ podTemplate(label: 'Pod-temp-ljw', containers: [
             }
             
             stage('Checkov') {
-		 withCredentials([string(credentialsId: 'PC_USER', variable: 'prismauser'),string(credentialsId: 'PC_PASSWORD', variable: 'prismapwd')]) {
+		        withCredentials([string(credentialsId: 'PC_USER', variable: 'prismauser'),string(credentialsId: 'PC_PASSWORD', variable: 'prismapwd')]) {
                 	container('checkov') {
                     		unstash 'source'
                     			sh '''
-                      				checkov -d . --use-enforcement-rules -o cli -o junitxml \ #withEnv에서 변수 지정시 checkov config에서 해당 변수명으로 자동 지정 됨
+                      				checkov -d . --use-enforcement-rules -o cli -o junitxml \ 
                         			--prisma-api-url ${PRISMA_API_URL} \
                         			--output-file-path console,results.xml \
                         			--bc-api-key ${prismauser}::${prismapwd} \
                         			--repo-id $REPO_ID --branch $BRANCH
                     				'''
+                                // withEnv에서 변수 지정시 checkov config에서 해당 변수명으로 자동 지정 됨
                     			junit skipPublishingChecks: true, testResults: 'results.xml'
                 }
             }
