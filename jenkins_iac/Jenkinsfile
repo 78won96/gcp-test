@@ -1,50 +1,33 @@
-label = "Pod-temp-ljw"
-
-environment {
-    PRISMA_API_URL = "https://api.jp.prismacloud.io"
-}
-
-podTemplate(label: label, containers: [
-    containerTemplate(name: "checkov", image: "bridgecrew/checkov:latest", command: "cat", ttyEnabled: true, alwaysPullImage: true)
-], volumes: [
-    hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock"),
-]) {
-
-    node(label) {
+podTemplate(label: 'Pod-temp-ljw', containers: [
+    containerTemplate(name: 'checkov', image: 'bridgecrew/checkov:latest', command: 'cat', ttyEnabled: true, resourceRequestMemory: '512Mi', resourceRequestCpu: '512m')
+], 
+    volumes: [
+        hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
+    ]
+) {
+    node('Pod-temp-ljw') {
         withEnv([
-            'PRISMA_API_URL = "https://api.jp.prismacloud.io"'
-        ])
-    {
-        stage('gitclone') {
-            // 컨테이너 컨텍스트 내에서 실행됨
-            container("checkov") {
-                // 저장소를 클론
+            'PRISMA_API_URL=https://api.jp.prismacloud.io',
+            'REPO_ID=78won96/GCP-Project-ljw',
+            'BRANCH=main'
+        ]) {
+            stage('Checkout') {
                 git branch: 'main', url: 'https://github.com/78won96/GCP-Project-ljw.git'
-                // 클론한 소스 파일을 스태시
                 stash includes: '**/*', name: 'source'
             }
-        }
-
-        stage('Checkov') {
-            // 자격증명을 안전하게 사용
-            withCredentials([string(credentialsId: 'PC_USER', variable: 'pc_user'), string(credentialsId: 'PC_PASSWORD', variable: 'pc_password')]) {
-                // 컨테이너 컨텍스트 내에서 실행됨
-                container("checkov") {
-                    // 소스 파일을 언스태시
-                    unstash 'source'
-
-                    // Checkov 실행
-                    sh '''
-                    checkov -d . --use-enforcement-rules -o cli -o junitxml \
-                    --prisma-api-url ${PRISMA_API_URL} \
-                    --output-file-path console,results.xml --bc-api-key ${pc_user}::${pc_password} \
-                    --repo-id 78won96/GCP-Project-ljw --branch main 
-                    '''
-
-                    // results.xml 파일이 생성되었는지 확인
-                    // sh 'ls -l results.xml'
-                    // JUnit 테스트 결과 게시
-                    junit skipPublishingChecks: true, testResults: 'results.xml'
+            
+            stage('Checkov') {
+		 withCredentials([string(credentialsId: 'PC_USER', variable: 'prismauser'),string(credentialsId: 'PC_PASSWORD', variable: 'prismapwd')]) {
+                	container('checkov') {
+                    		unstash 'source'
+                    			sh '''
+                      				checkov -d . --use-enforcement-rules -o cli -o junitxml \ #withEnv에서 변수 지정시 checkov config에서 해당 변수명으로 자동 지정 됨
+                        			--prisma-api-url ${PRISMA_API_URL} \
+                        			--output-file-path console,results.xml \
+                        			--bc-api-key ${prismauser}::${prismapwd} \
+                        			--repo-id $REPO_ID --branch $BRANCH
+                    				'''
+                    			junit skipPublishingChecks: true, testResults: 'results.xml'
                 }
             }
         }
