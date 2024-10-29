@@ -11,7 +11,10 @@ podTemplate(label: label, containers: [
 ]) {
 
     node(label) {
-
+        withEnv([
+            'PRISMA_API_URL = "https://api.jp.prismacloud.io"'
+        ])
+    {
         stage('gitclone') {
             // 컨테이너 컨텍스트 내에서 실행됨
             container("checkov") {
@@ -44,4 +47,5 @@ podTemplate(label: label, containers: [
             }
         }
     }
+}
 }
