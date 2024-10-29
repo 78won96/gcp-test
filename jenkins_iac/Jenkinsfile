@@ -1,11 +1,11 @@
-podTemplate(label: 'Pod-temp-ljw', containers: [
+podTemplate(label: 'Pod-ljw', containers: [
     containerTemplate(name: 'checkov', image: 'bridgecrew/checkov:latest', command: 'cat', ttyEnabled: true, resourceRequestMemory: '512Mi', resourceRequestCpu: '512m')
 ], 
     volumes: [
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
     ]
 ) {
-    node('Pod-temp-ljw') {
+    node('Pod-ljw') {
         withEnv([
             'PRISMA_API_URL=https://api.jp.prismacloud.io',
             'REPO_ID=78won96/GCP-Project-ljw',
