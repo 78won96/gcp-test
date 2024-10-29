@@ -1,0 +1,51 @@
+{
+    "orchestrator_roles": {
+        "orchestrator1": {
+            "role_permissions": ["bigtable.clusters.create","bigtable.instances.create","bigtable.instances.createTagBinding","bigtable.tables.create","compute.addresses.create","cloudsql.backupRuns.create","cloudsql.databases.create","cloudsql.instances.create","cloudsql.instances.restoreBackup","cloudsql.users.create","compute.addresses.delete","compute.addresses.delete","compute.addresses.setLabels","compute.addresses.use","compute.disks.create","compute.firewallPolicies.create","compute.firewalls.create","compute.globalAddresses.create","compute.globalAddresses.createInternal","compute.instances.create","compute.networkAttachments.create","compute.networkAttachments.delete","compute.networks.access","compute.networks.create","compute.networks.delete","compute.networks.setFirewallPolicy","compute.networks.updatePolicy","compute.networks.use","compute.routers.create","compute.routes.create","compute.routes.delete","compute.snapshots.useReadOnly","compute.subnetworks.create","compute.subnetworks.use","compute.subnetworks.useExternalIp","iam.serviceAccounts.get","iam.serviceAccounts.list","networkservices.gateways.create","secretmanager.secrets.create","servicenetworking.services.addPeering"],
+            "assignment_condition": "",
+            "assignment_title": ""
+        },
+        "orchestrator2": {
+            "role_permissions": ["bigtable.clusters.delete","bigtable.clusters.update","bigtable.instances.delete","bigtable.tables.delete","bigtable.tables.undelete","compute.instances.setTags","compute.disks.delete","compute.disks.resize","compute.disks.setLabels","compute.disks.use","compute.disks.useReadOnly","compute.firewallPolicies.delete","compute.firewallPolicies.update","compute.firewallPolicies.update","compute.firewallPolicies.use","compute.firewalls.delete","compute.firewalls.update","compute.globalAddresses.setLabels","compute.globalAddresses.use","compute.images.delete","compute.images.setIamPolicy","compute.images.setLabels","compute.images.update","compute.images.useReadOnly","compute.instances.addResourcePolicies","compute.instances.attachDisk","compute.instances.delete","compute.instances.detachDisk","compute.instances.osAdminLogin","compute.instances.osLogin","compute.instances.reset","compute.instances.resume","compute.instances.setDeletionProtection","compute.instances.setDiskAutoDelete","compute.instances.setIamPolicy","compute.instances.setLabels","compute.instances.setLabels","compute.instances.setMachineResources","compute.instances.setMachineType","compute.instances.setMetadata","compute.instances.setMetadata","compute.instances.setMinCpuPlatform","compute.instances.setName","compute.instances.setServiceAccount","compute.instances.setServiceAccount","compute.instances.start","compute.instances.startWithEncryptionKey","compute.instances.stop","compute.instances.suspend","compute.instances.update","compute.instances.updateAccessConfig","compute.instances.updateNetworkInterface","compute.instances.use","compute.routers.delete","compute.routers.update","compute.subnetworks.delete"],
+            "assignment_condition": "resource.name.extract(\"/instances/{name}\").startsWith(\"dig-\")||resource.name.extract(\"/disks/{name}\").startsWith(\"dig-\")||resource.name.extract(\"/firewallPolicies/{name}\").startsWith(\"dig-\")||resource.name.extract(\"/images/{name}\").startsWith(\"dig-\")||resource.name.extract(\"/firewalls/{name}\").startsWith(\"dig-\")||resource.name.extract(\"/routers/{name}\").startsWith(\"dig-\")||resource.name.extract(\"/subnetworks/{name}\").startsWith(\"dig-\")||resource.name.extract(\"/tables/{name}\").startsWith(\"dig-\")",
+            "assignment_title": "restrict_to_dig_resources2"
+        },
+        "orchestrator3": {
+            "role_permissions": ["cloudsql.databases.delete","cloudsql.databases.update","cloudsql.instances.delete","cloudsql.users.delete","cloudsql.instances.update","cloudsql.users.update","cloudsql.instances.connect","cloudsql.instances.login","cloudsql.instances.restart"],
+            "assignment_condition": "resource.name.extract(\"/instances/{name}\").startsWith(\"dig-\")||resource.type!=\"sqladmin.googleapis.com/Instance\"",
+            "assignment_title": "restrict_to_dig_resources3"
+        },
+        "orchestrator4": {
+            "role_permissions": ["secretmanager.secrets.setIamPolicy","secretmanager.secrets.update","secretmanager.versions.access","secretmanager.versions.add","secretmanager.versions.destroy","secretmanager.versions.disable","secretmanager.versions.enable","secretmanager.versions.get","secretmanager.versions.list","secretmanager.secrets.delete","cloudkms.cryptoKeyVersions.create","cloudkms.cryptoKeyVersions.destroy","cloudkms.cryptoKeyVersions.get","cloudkms.cryptoKeyVersions.list","cloudkms.cryptoKeyVersions.update","cloudkms.cryptoKeyVersions.useToDecrypt","cloudkms.cryptoKeyVersions.useToEncrypt","cloudkms.cryptoKeys.create","cloudkms.cryptoKeys.update","cloudkms.cryptoKeys.setIamPolicy","cloudkms.keyRings.create"],
+            "assignment_condition": "resource.name.extract(\"/secrets/{name}\").startsWith(\"dig-\")||resource.name.extract(\"/versions/{name}\").startsWith(\"dig-\")||resource.name.extract(\"/keyRings/{name}\").startsWith(\"dig-\")",
+            "assignment_title": "restrict_to_dig_resources4"
+        }
+    },
+    "monitored_roles": {
+            "collector1": {
+            "role_permissions": ["cloudsql.backupRuns.get","compute.snapshots.useReadOnly","bigquery.bireservations.get","bigquery.capacityCommitments.get","bigquery.capacityCommitments.list","bigquery.config.get","bigquery.datasets.get","bigquery.datasets.getIamPolicy","bigquery.models.getData","bigquery.models.getMetadata","bigquery.models.list","bigquery.routines.get","bigquery.routines.list","bigquery.tables.export","bigquery.tables.get","bigquery.tables.getData","bigquery.tables.getIamPolicy","bigquery.tables.list","bigtable.backups.restore"],
+            "assignment_condition": "",
+            "assignment_title": ""
+            },
+            "scanner1": {
+            "role_permissions": ["bigtable.backups.create","bigtable.backups.delete","cloudsql.backupRuns.create","cloudsql.backupRuns.delete","compute.disks.createSnapshot","compute.snapshots.create","compute.snapshots.setLabels","storage.objects.get","storage.objects.list"],
+            "assignment_condition": "",
+            "assignment_title": ""
+            },
+            "scanner2": {
+            "role_permissions": ["storage.objects.update","storage.objects.create","storage.multipartUploads.create","storage.multipartUploads.abort","storage.buckets.setIamPolicy","storage.buckets.create","storage.buckets.update","storage.buckets.delete","storage.multipartUploads.list","storage.multipartUploads.listParts","storage.objects.delete","compute.snapshots.delete"],
+            "assignment_condition": "resource.name.startsWith(\"projects/_/buckets/dig\")||resource.name.extract(\"/snapshots/{name}\").startsWith(\"dig-\")",
+            "assignment_title": "restrict_to_dig_resources_scanner2"
+            },
+            "scanner3": {
+            "role_permissions": ["cloudkms.cryptoKeyVersions.get","cloudkms.cryptoKeyVersions.useToDecrypt","cloudkms.cryptoKeyVersions.useToEncrypt"],
+            "assignment_condition": "resource.name.extract(\"/keyRings/{name}\").startsWith(\"dig-\")",
+            "assignment_title": "restrict_to_dig_resources_scanner3"
+            },
+            "readonly1": {
+            "role_permissions": ["resourcemanager.projects.get","aiplatform.endpoints.getIamPolicy","bigquery.connections.getIamPolicy","bigquery.dataPolicies.getIamPolicy","bigquery.datasets.getIamPolicy","bigquery.rowAccessPolicies.getIamPolicy","bigquery.tables.getIamPolicy","bigtable.backups.getIamPolicy","bigtable.instances.getIamPolicy","bigtable.tables.getIamPolicy","cloudkms.cryptoKeys.getIamPolicy","cloudkms.ekmConnections.getIamPolicy","cloudkms.importJobs.getIamPolicy","cloudkms.keyRings.getIamPolicy","compute.backendBuckets.getIamPolicy","compute.backendServices.getIamPolicy","compute.disks.getIamPolicy","compute.disks.get","compute.instances.get","compute.firewallPolicies.getIamPolicy","compute.globalOperations.getIamPolicy","compute.images.getIamPolicy","compute.instances.getIamPolicy","compute.networkEndpointGroups.getIamPolicy","compute.securityPolicies.getIamPolicy","compute.serviceAttachments.getIamPolicy","compute.snapshots.getIamPolicy","compute.subnetworks.getIamPolicy","compute.zoneOperations.getIamPolicy","connectors.connections.getIamPolicy","iam.serviceAccounts.getIamPolicy","pubsub.subscriptions.getIamPolicy","pubsub.topics.getIamPolicy","resourcemanager.projects.getIamPolicy","run.jobs.getIamPolicy","run.services.getIamPolicy","secretmanager.secrets.getIamPolicy","spanner.backups.getIamPolicy","spanner.databases.getIamPolicy","spanner.instances.getIamPolicy","storage.buckets.getIamPolicy","storage.objects.getIamPolicy","firebaserules.releases.get","firebaserules.releases.getExecutable","firebaserules.releases.list","firebaserules.rulesets.get","firebaserules.rulesets.list"],
+            "assignment_condition": "",
+            "assignment_title": ""
+            }
+    }
+}
