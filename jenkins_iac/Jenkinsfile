@@ -12,7 +12,7 @@ podTemplate(label: 'Pod-temp-ljw', containers: [
             'BRANCH=main'
         ]) {
             stage('Checkout') {
-                git branch: 'main', url: 'https://github.com/78won96/GCP-Project-ljw.git'
+                git branch: 'main', url: 'https://github.com/78won96/GCP-Project-ljw'
                 stash includes: '**/*', name: 'source'
             }
             
